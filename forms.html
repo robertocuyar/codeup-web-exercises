@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register With Us</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<form method="post" action="https://www.elformo.com/forms/81801a00-8be3-4ab8-9434-a051f84a7f98">
+    <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Type your email here" required>
+    </div>
+    <br>
+    <br>
+    <div><label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Type your password here" required>
+    </div>
+    <br>
+    <br>
+    <div>
+        Bio:
+        <br>
+        <textarea placeholder="Tell us about yourself" id="bio" name="bio" rows="7" spellcheck="true"
+                  maxlength="100"></textarea>
+    </div>
+    <br>
+    <br>
+    <div>
+        How did you hear about us?
+        <br>
+        <input type="checkbox" name="hear_us" value="billboard">Billboard
+        <br>
+        <input type="checkbox" name="hear_us" value="radio_ad">Radio Advertisement
+        <br>
+        <input type="checkbox" name="hear_us" value="internet">Internet Advertisement
+        <br>
+        <input type="checkbox" name="hear_us" value="other">Other
+    </div>
+    <br>
+    <!--If names are changed then we can select various radio inputs at a time. It disconnects the input from the actual question/label-->
+    <br>
+    <br>
+    <div>
+        <label for="web">What web browser are you using?</label>
+        <select name="web" id="web" style="
+    height: 21.988636px;">
+            <option value="chrome">Google Chrome 😁</option>
+            <option value="safari">Safari 😉</option>
+            <option value="ie">Internet Explorer 😭</option>
+            <option value="firefox">Mozilla Firefox 😲</option>
+        </select>
+    </div>
+    <br>
+    <br>
+    <button type="submit">Finish</button>
+    <!--The request asks for a query from the server. The url contains the query string.-->
+    <!--Leaving the name off an input does not send the information in the input in the request.-->
+    <!--Taking out the id from the input does not remove the data sent in the request-->
+</form>
+
+</body>
+</html>
