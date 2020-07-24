@@ -1,6 +1,7 @@
 body {
     background-image: url("../images/memphis-mini.png");
     background-color: lightcyan;
+    font-family: 'Red Rose', cursive;
     }
 div{
     background-color:lightgray;
@@ -12,4 +13,70 @@ button{
 .fancy-header {
     color: purple; /* single line comment */
     text-decoration: underline;
+}
+h1 {
+    text-align: center;
+}
+h2{
+    color: purple;
+    text-decoration: underline;
+}
+h1, h2 {
+    font-family: 'Roboto', sans-serif;
+}
+ul{
+    /*list-style: circle;*/
+
+}
+ol{
+    list-style: upper-roman;
+}
+th, td{
+    border-bottom: 1px solid #dddddd;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+table{
+    background-color: #f4f6ff;
+}
+a:hover{
+    color: #000000;
+}
+hr{
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    width: 400px;
+    height: 0px;
+    padding-top: 0px;
+    margin-left: 450px;
+    margin-right: 0px;
+    border-top-width: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 2px dashed;
+    color: #dddddd;
+}
+.exp_list{
+    list-style: none;
+    padding-left:0;
+}
+.exp_list li{
+    position:relative;
+    padding-left: 20px;
+
+}
+.exp_list li:before{
+    content:'';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-image: url("../images/image.png");
+    background-size: cover;
+    background-postion: center;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
