@@ -57,7 +57,7 @@ a {
     font-size: 1.3em;
     padding: 10px;
     position: relative;
-    bottom: -20px;
+    bottom: -17.5px;
     right: 5px;
 }
 .img-circle {
@@ -81,34 +81,34 @@ a {
 }
 .profile-image {
     position: absolute;
-    top: 225px;
+    top: 240px;
 }
 
 .profile-details {
     float: left;
     margin: 0 0.5em;
-    width: calc(25% - 3em);
+    width: calc(25% - 1em);
 }
 .timeline {
     float: left;
-    margin: 0 1em;
-    width: calc( 50% - 3em);
+    margin: 0 0.5em;
+    width: calc( 50% - 1em);
 }
 .who-to-follow {
     float:left;
     margin: 0 0.5em;
-    width: calc( 25% - 3em);
+    width: calc( 25% - 1em);
 }
 .container {
-    margin-bottom: 2em;
+    padding-top: 2em;
 }
 .media {
     width: 100%;
     background-color: var(--light-bg);
-    border-bottom: 1px var(--separator-color);
+    border-bottom: solid 1px var(--separator-color);
     padding: 0.5em;
+
     overflow: auto;
-    margin-top: 8px;
 }
 .media-image{
     max-width: 50px;
@@ -117,7 +117,7 @@ a {
 }
 .media-body{
     float: left;
-    width: calc(100%);
+    width: calc(100% - 50px);
 
 }
 .profile-items{
