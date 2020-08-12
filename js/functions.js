@@ -55,7 +55,7 @@ var random = Math.floor((Math.random() * 3) + 1);
  * number)
  */
 function isTwo(number) {
-    return number == 2;
+    return number === 2;
 };
 console.log("Is " + random + " the number two? Answer: " + isTwo(random));
 
