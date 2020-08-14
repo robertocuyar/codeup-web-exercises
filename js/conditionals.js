@@ -50,7 +50,7 @@ analyzeColor(randomColor);
  * Refactor your above function to use a switch-case statement
  */
 function refactorAnalyzeColor(color) {
-    switch(color) {
+    switch(color.toLowerCase()) {
         case('red'):
             return "Strawberries are red.";
         case('blue'):
