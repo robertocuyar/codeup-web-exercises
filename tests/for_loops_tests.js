@@ -121,4 +121,28 @@ describe("returnCountDownFrom100InFives", function() {
     it("should be defined", function() {
         expect(returnCountDownFrom100InFives).toBeDefined();
     });
+    it('should return a string with a concat of numbers from 100 to 5', function() {
+        var countDown = "100\n" +
+        "95\n" +
+        "90\n" +
+        "85\n" +
+        "80\n" +
+        "75\n" +
+        "70\n" +
+        "65\n" +
+        "60\n" +
+        "55\n" +
+        "50\n" +
+        "45\n" +
+        "40\n" +
+        "35\n" +
+        "30\n" +
+        "25\n" +
+        "20\n" +
+        "15\n" +
+        "10\n" +
+        "5";
+        expect(returnCountDownFrom100InFives()).toEqual(countDown);
+    });
+
 });

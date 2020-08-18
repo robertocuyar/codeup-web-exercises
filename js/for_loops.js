@@ -47,7 +47,14 @@ var returnNumberSail = function() {
 }
 
 var returnCountDownFrom100InFives = function(){
-
+    let output = '';
+    for (var i = 0; i <= 19; i++) {
+        var row = 100 - 5 * i;
+        if (i !== 19) {
+            output = output.concat(row + '\n');
+        } else { output = output.concat(row);}
+    }
+return output;
 }
 
 
