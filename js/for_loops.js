@@ -34,13 +34,13 @@ var returnTenEvenOddMessages = function(input){
     return response;
 }
 var returnNumberSail = function() {
-    let output = ""
+    let output = "" //makes sure to change output as a string
     for (var i = 1; i <= 9; i++) {
-        var row = ("" + i).repeat(i);
+        var row = ("" + i).repeat(i); //what will be in each row
         if (i !== 9) {
             output = output.concat(row + "\n");
         } else {
-            output = output.concat(row);
+            output = output.concat(row); //makes sure last row doesnt have line break
         }
     }
     return output;

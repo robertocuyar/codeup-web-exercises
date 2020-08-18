@@ -19,10 +19,9 @@ var isMyNumberOddList = function (input) {
             console.log("Here is an odd number: " + i);
         } else if (i === input && input % 2 !== 0) {
             console.log("Yikes! Skipping number: " + input);
+            continue;
         } else if (!(input % 2 !== 0)){
             input = prompt('Type in an odd number from 1 to 50.');
-        } else {
-            continue;
         }
     }
 }

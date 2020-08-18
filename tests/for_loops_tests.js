@@ -81,7 +81,7 @@ describe("returnTenEvenOddMessages", function() {
         }
 
         // TODO: assert that the outputContainsExpectedNumbers function returns true
-
+expect(outputContainsExpectedNumbers()).toBe(true);
     });
 });
 
