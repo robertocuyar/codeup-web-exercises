@@ -25,6 +25,10 @@
     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
     culpa qui officia deserunt mollit anim id est laborum.
 </p>
+<button id="btn-1">Main Header Change!</button>
+<button id="btn-2">Sub Header Change!</button>
+<button id ="btn-3">Every Other Change with One Blue Change!</button>
+<button id="btn-4">Mission...</button>
 
 <script>
     (function() {
@@ -33,13 +37,21 @@
         var mainHeader = document.getElementById("main-header");
 
         // TODO: Set inner html of mainHeader to "JavaScript is Cool"
-        mainHeader.innerHTML = "JavaScript is Cool";
+        var mainChange = function() {
+            mainHeader.innerHTML = "JavaScript is Cool";
+        };
+        var button1 = document.getElementById('btn-1');
+        button1.addEventListener('click', mainChange)
 
         // TODO: Uncomment the next line and get the sub header element by id
         var subHeader = document.getElementById('sub-header');
 
         // TODO: Set the text color of subHeader to blue
-        subHeader.style.color = '#0000FF';
+        var subHeaderChange = function(){
+            subHeader.style.color = '#0000FF';
+        }
+        var button2 = document.getElementById('btn-2');
+        button2.addEventListener('click', subHeaderChange);
 
         // TODO: Uncomment the next line and get all list items
         var listItems = document.getElementsByTagName('LI');
@@ -57,7 +69,9 @@
                 }
             }
         }
-        everyOther();
+        var button3 = document.getElementById('btn-3');
+        button3.addEventListener('click', everyOther)
+
         // TODO: Set text color of li with dbid = 1 to blue
 
 
@@ -66,7 +80,11 @@
         var subParagraphs = document.getElementsByClassName('sub-paragraph');
 
         // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
-        subParagraphs[0].innerHTML = "Mission Accomplished!"
+        var paragraphChange = function(){
+            subParagraphs[0].innerHTML = "Mission Accomplished!"
+        }
+        var button4 = document.getElementById('btn-4');
+        button4.addEventListener('click', paragraphChange)
     })();
 </script>
 </body>
