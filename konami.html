@@ -5,24 +5,52 @@
 </head>
 <body>
 <h1>Konami Code</h1>
+<h2 id="input_display"></h2>
+<audio id="sound"> <source src="audio/grenade-launcher-daniel_simon.wav" type="audio/mpeg"></audio>
 
 <script src="js/jquery-2.2.4.min.js"></script>
 <script>
     "use strict";
 
-var readCode = [];
-var cheatCode = [38,38,40,40,37,39,37,39,66,65]
+let readCode = [];
+let cheatCode = [38,38,40,40,37,39,37,39,66,65];
+let newArray = [];
+    function displayArray (input) {
+        newArray.push(input)
+        newArray.forEach(function(element, i) {
+            if (element === 38){
+                newArray.splice(i, 1, '&#8593')
+            } else if (element === 40){
+                newArray.splice(i, 1, '&#8595')
+            } else if (element === 37) {
+                newArray.splice(i, 1, '&#8592')
+            } else if (element === 39) {
+                newArray.splice(i, 1, '&#8594')
+            } else if (element.toString().includes('&') === false && typeof element !== 'string'){
+                newArray.splice(i, 1, String.fromCharCode(element));
+            }
+        })
+        $('#input_display').html(newArray.join(" "));
+    }
     $(document).keyup(function(event){
+        displayArray(event.keyCode);
         if (readCode.join('') === cheatCode.join('')) {
+            $('audio#sound')[0].play();
+            $('body').css('background-image', 'url("images/game_over.jpeg")')
             alert("You have added 30 lives!");
             readCode = [];
+            newArray = [];
+
+            $('#input_display').html(newArray.join(" "));
         }else if (event.keyCode === 13 ) {
             readCode = [];
-            console.log(readCode);
+            newArray = [];
+            $('#input_display').html(newArray.join(" "));
         } else {
             readCode.push(event.keyCode);
-            console.log(readCode);
+
         }
+
     });
 
 </script>
