@@ -5,13 +5,23 @@
     <title>jQuery Exercises</title>
 </head>
 <body>
-<h1>The beginning of jQuery Exercises!</h1>
+<h1 id="0" class="codeup">The beginning of jQuery Exercises!</h1>
+<p id="1" class="content-p">JQuery is cool.</p>
+<ul id="2">
+    <li id="3" class="content-items">item 1</li>
+    <li id= "4" class="content-items"> item 2</li>
+    <li id ="5" class="content-items">item 3</li>
+</ul>
+<div id ="6" class = 'codeup'></div>
 <script src="js/jquery-2.2.4.min.js"></script>
 <script>
     (function () {
         "use strict";
         $().ready(function(){
-            alert('DOM has finished loading');
+          $('li').css('font-size', '20px');
+          $('h1, p, li').css('background-color', 'yellow');
+          var content = $('h1').html();
+          alert(content);
         })
     })();
 </script>
