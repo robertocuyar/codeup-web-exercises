@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet'/>
+    <title>Mapbox API Exercise</title>
+</head>
+<body>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<br>
+<label for="zoom">Zoom Value</label>
+<br>
+<select name="select_zoom" id="zoom" onchange="changeZoom()">
+    <option value="5">5</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+</select>
+<br>
+<form name="enterAddress" id="enterAddress">
+    <label for="address_input">Enter An Address</label>
+    <br>
+    <input id='address_input' type="text" name="address_input" placeholder="Address goes here...">
+    <button type='button' id="submit_address">Search The Address</button>
+</form>
+<script src="js/keys.js"></script>
+<script>
+
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [-74.5, 40], // starting position [lng, lat]
+        zoom: 10, // starting zoom
+        doubleClickZoom: true,
+    });
+    var changeZoom = function () {
+        var change = document.getElementById('zoom').value;
+        map.zoomTo(change,{
+            duration: 2000,
+            offset: [100, 50]
+        });
+
+    }
+
+    var input_button = document.getElementById('submit_address');
+    input_button.addEventListener('click', actionAddress);
+
+    function geocode(search, token) {
+        var baseUrl = 'https://api.mapbox.com';
+        var endPoint = '/geocoding/v5/mapbox.places/';
+        return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
+            .then(function(res) {
+                return res.json();
+                // to get all the data from the request, comment out the following three lines...
+            }).then(function(data) {
+                return data.features[0].center;
+            });
+    }
+
+    function actionAddress() {
+        var input_value = document.getElementById('address_input').value;
+        console.log(input_value);
+            geocode(input_value, MAPBOX_TOKEN).then(function (result) {
+                console.log(input_value);
+                var popup = new mapboxgl.Popup()
+                    .setHTML("<p>El Toreo</p>");
+                var marker = new mapboxgl.Marker()
+                    .setLngLat(result)
+                    .addTo(map)
+                    .setPopup(popup);
+                //popup.addTo(map)
+                map.setCenter(result);
+                map.setZoom(17);
+            });
+    }
+
+
+
+
+
+
+    /*  geocode("1481 AZ-89A, Clarkdale, AZ 86324", MAPBOX_TOKEN).then(function (result) {
+
+          var popup = new mapboxgl.Popup()
+              .setHTML("<p>El Toreo</p>");
+          var marker = new mapboxgl.Marker()
+              .setLngLat(result)
+              .addTo(map)
+              .setPopup(popup);
+          //popup.addTo(map)
+          map.setCenter(result);
+          map.setZoom(17);
+
+
+      });
+
+var locations = [
+  {
+      name:'El Toreo',
+      address: "1481 AZ-89A, Clarkdale, AZ 86324",
+      info: "<ul><li>Chile Verde Burrito</li><br><li>Steak Enchiladas</li></ul>"
+  },
+  {
+      name: "Tavern Grille",
+      address: "914 N Main St, Cottonwood, AZ 86326",
+      info: "<ul><li>Grilled Chicken</li><br><li>Prime Rib Sliders</li></ul>"
+  },
+  {
+      name: "Plaza Bonita Mexican Restaurant",
+      address: "991 S Main St, Cottonwood, AZ 86326",
+      info: "<ul><li>Combo Taco and Tostada</li><br><li>Fajita Chicken</li></ul>"
+  }
+];
+locations.forEach(function(location,i) {
+  geocode(location.address, MAPBOX_TOKEN).then(function (result) {
+
+      var popup = new mapboxgl.Popup()
+          .setHTML("<p>" + location.name + "</p>" + location.info);
+      var marker = new mapboxgl.Marker()
+          .setLngLat(result)
+          .addTo(map)
+          .setPopup(popup);
+      map.setCenter(result);
+      map.setZoom(12);
+
+
+  })
+});
+
+*/
+</script>
+
+</body>
+</html>
