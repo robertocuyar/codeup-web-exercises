@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Konami Code</title>
+    <style>
+        #input_display{
+            font-size: 50px;
+            color: blue;
+            font-weight: 900;
+        }
+    </style>
 </head>
 <body>
 <h1>The Konami Code</h1>
-<h2>Press enter when ready. <span>😃</span> </h2>
+<h2>Press enter when ready or to restart. <span id ='smiley'>😃</span> </h2>
 <!--<input id="input_number" type="text">-->
 <h2 id="input_display"></h2>
 <audio id="sound"> <source src="audio/grenade-launcher-daniel_simon.wav" type="audio/mpeg"></audio>
@@ -33,30 +40,39 @@ let newArray = [];
                 newArray.splice(i, 1, String.fromCharCode(element));
             }
         })
-        $('#input_display').html(newArray.join(" "));
+        $('TYPE HERE ID FROM ELEMENT TO DISPLAY').html(newArray.join(" "));
     }
-    $(document).keyup(function(event){
+    function defaultStyle (){
+        $('body').css('background-color', 'white');
+        $('body').css('background-image', 'none');
+    }
+    function resetArrays(){
+        readCode = [];
+        newArray = [];
+    };
+    $(document).keydown(function(event){
         displayArray(event.keyCode);
         if (readCode.join('') === cheatCode.join('')) {
             $('audio#sound')[0].play();
             $('body').css('background-image', 'url("images/game_over.jpeg")')
             $('body').css('background-size', 'cover')
-            alert("You have added 30 lives! Just Kidding! We don't like cheaters!!!!");
-            readCode = [];
-            newArray = [];
+            alert("You have added 30 lives!");
+            alert("Just Kidding! We don't like cheaters!!!!")
+            $('#smiley').html('😭')
+          resetArrays();
 
             $('#input_display').html(newArray.join(" "));
-        }else if (event.keyCode === 13 ) {
-            readCode = [];
-            newArray = [];
+        }else if (event.keyCode === 13 || readCode.length > 11 ) {
+           resetArrays();
+            defaultStyle();
             $('#input_display').html(newArray.join(" "));
+            $('#smiley').html('😃')
+
         } else {
             readCode.push(event.keyCode);
-            $('body').css('background-color', 'white');
-            $('body').css('background-image', 'none');
-
+           defaultStyle();
+            $('#smiley').html('😃')
         }
-
     });
 /*
     $(document).keyup(function(event) {
