@@ -12,6 +12,46 @@
         .highlight {
             background-color: yellow;
         }
+        .text {
+            font-weight: bold;
+        }
+        .text_blue{
+            color: blue;
+        }
+        .picture_frame {
+            height: 200px;
+            width: 200px;
+
+
+        }
+        .redborder{
+            border: 4px solid red;
+        }
+        .blueborder{
+            border: 4px solid blue;
+        }
+        .greenborder{
+            border: 4px solid green;
+        }
+        .pizza{
+            background-image: url("images/pizza.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .tree{
+            background-image: url("images/green-pine-trees-1179229.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .gameover{
+            background-image: url("images/game_over.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .pictures {
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
     <title>National Parks FAQ</title>
 </head>
@@ -58,6 +98,44 @@
         </ul>
     </dd>
 </dl>
+<h3>Big Sough Fork</h3>
+<ul class="new_ul">
+    <li>National River & Recreation Area</li>
+    <li>KY, TN</li>
+    <li>Pets allowed</li>
+    <li>Park Brochures Available</li>
+</ul>
+<h3>Buffalo National River</h3>
+<ul class="new_ul">
+    <li>National River</li>
+    <li>Arkansas</li>
+    <li>Pets allowed</li>
+    <li>Visit the Sod Collier Homestead</li>
+</ul>
+<h3>New River Gorge</h3>
+<ul class="new_ul">
+    <li>National River</li>
+    <li>West Virginia</li>
+    <li>Resource Management</li>
+    <li>Planning and Civic Engagement Involvement</li>
+</ul>
+<button type="button" id="highlight_li">Highlight Last Item</button>
+<br>
+<section class="pictures">
+    <section>
+<div class="picture_frame pizza redborder"></div>
+        <button type="button" id="frame-1">Switch</button>
+    </section>
+    <section>
+<div class="picture_frame tree blueborder"></div>
+        <button type="button" id="frame-2">Switch</button>
+    </section>
+    <section>
+<div class="picture_frame gameover greenborder"></div>
+        <button type="button" id="frame-3">Switch</button>
+    </section>
+</section>
+
 <script src="js/jquery-2.2.4.min.js"></script>
 <script>
     $(document).ready(function (){
@@ -66,6 +144,21 @@
         })
         $('dt').click(function(){
             $(this).toggleClass('highlight')
+        })
+        $('#highlight_li').click(function(){
+            $('li').each(function(index){
+             if (index === 11 || index=== 15 || index=== 19)
+                 $(this).toggleClass('highlight')
+                })
+            })
+        $('h3').click(function(){
+            $(this).next().children(":first-child").toggleClass('text');
+        })
+        $('li').click(function(){
+            $(this).parent().children(":first-child").toggleClass('text_blue')
+        })
+        $('#picture_swap').click(function(){
+
         })
     })
 </script>
