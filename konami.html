@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Konami Code</title>
 </head>
 <body>
-<h1>Konami Code</h1>
+<h1>The Konami Code</h1>
+<h2>Press enter when ready. <span>😃</span> </h2>
+<!--<input id="input_number" type="text">-->
 <h2 id="input_display"></h2>
 <audio id="sound"> <source src="audio/grenade-launcher-daniel_simon.wav" type="audio/mpeg"></audio>
 
@@ -37,7 +40,8 @@ let newArray = [];
         if (readCode.join('') === cheatCode.join('')) {
             $('audio#sound')[0].play();
             $('body').css('background-image', 'url("images/game_over.jpeg")')
-            alert("You have added 30 lives!");
+            $('body').css('background-size', 'cover')
+            alert("You have added 30 lives! Just Kidding! We don't like cheaters!!!!");
             readCode = [];
             newArray = [];
 
@@ -48,10 +52,47 @@ let newArray = [];
             $('#input_display').html(newArray.join(" "));
         } else {
             readCode.push(event.keyCode);
+            $('body').css('background-color', 'white');
+            $('body').css('background-image', 'none');
 
         }
 
     });
+/*
+    $(document).keyup(function(event) {
+        code.push(event.keyCode);
+        let i = 0;
+        while (i < code.length) {
+            if (code[i] === konamiCode[i]) {
+                if (code[i] === konamiCode[10] && code.length < 12){
+                    alert("you did it!");
+                }
+            } else {
+                code = [];
+            }
+            i++; // this is already in you for loop
+        }
+
+    });
+    let getFactors = function (input) {
+        let answerArray = [];
+        for (let i = 1; i <= input; i++) {
+            if (input % i === 0) {
+                answerArray.push(i);
+            }
+        }
+        return answerArray.join("<br>");
+    }
+    console.log(getFactors(100));
+
+    $(document).ready(function(){
+
+        $('#input_number').keyup(function(){
+            let inputValue = $(this).val();
+            console.log(inputValue);
+            $('#input_display').html(getFactors(inputValue));
+        })
+    })*/
 
 </script>
 </body>
