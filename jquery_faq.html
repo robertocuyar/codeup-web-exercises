@@ -52,10 +52,18 @@
             display: flex;
             justify-content: space-around;
         }
+        ul {
+            display: none;
+        }
     </style>
     <title>National Parks FAQ</title>
 </head>
 <body>
+<h2>Would you like to register for the site?</h2>
+<div>
+    <h1>Would you like to sign up for our newsletter?</h1>
+    <span>X</span>
+</div>
 <a id="toggle_hidden">Click here to hide answers.</a>
 <dl>
     <dt>Who is the director of the National Park Service?</dt>
@@ -139,6 +147,7 @@
 <script src="js/jquery-2.2.4.min.js"></script>
 <script>
     $(document).ready(function () {
+        $('h2').hide().fadeIn(16000);
         $('#toggle_hidden').click(function () {
             $('dd').toggleClass('invisible');
         })
@@ -152,6 +161,7 @@
             })
         })
         $('h3').click(function () {
+            $('ul').slideToggle(1000);
             $(this).next().children(":first-child").toggleClass('text');
         })
         $('li').click(function () {
@@ -162,11 +172,11 @@
             if (number === 1) {
                 $(this).click(function () {
                     $('div').each(function (index) {
-                        if (index === 0) {
+                        if (index === 1) {
                             $(this).toggleClass('pizza').toggleClass('tree').toggleClass('redborder').toggleClass('greenborder');
-                        } else if (index === 1) {
-                            $(this).toggleClass('tree').toggleClass('pizza');
                         } else if (index === 2) {
+                            $(this).toggleClass('tree').toggleClass('pizza');
+                        } else if (index === 3) {
                             $(this).toggleClass('greenborder').toggleClass('redborder');
                         }
                     })
@@ -177,18 +187,18 @@
                     let randomAction = Math.floor(Math.random() * Math.floor(2));
                     if (randomAction === 0) {
                         $('div').each(function (index) {
-                            if (index === 0) {
+                            if (index === 1) {
                                 $(this).toggleClass('redborder').toggleClass('blueborder');
-                            } else if (index === 1) {
+                            } else if (index === 2) {
                                 $(this).toggleClass('blueborder').toggleClass('redborder');
                             }
                         })
                     }
                     if (randomAction === 1) {
                         $('div').each(function (index) {
-                            if (index === 1) {
+                            if (index === 2) {
                                 $(this).toggleClass('blueborder').toggleClass('greenborder');
-                            } else if (index === 2) {
+                            } else if (index === 3) {
                                 $(this).toggleClass('greenborder').toggleClass('blueborder');
                             }
                         })
@@ -199,17 +209,20 @@
             if (number === 3){
                 $(this).click(function () {
                     $('div').each(function (index) {
-                        if (index === 0) {
+                        if (index === 1) {
                             $(this).toggleClass('redborder').toggleClass('greenborder');
-                        } else if (index === 1) {
-                            $(this).toggleClass('tree').toggleClass('gameover');
                         } else if (index === 2) {
+                            $(this).toggleClass('tree').toggleClass('gameover');
+                        } else if (index === 3) {
                             $(this).toggleClass('gameover').toggleClass('tree').toggleClass('greenborder').toggleClass('redborder');
                         }
                     })
                 })
             }
         })
+        $('span').click(function() {
+            $('h1').hide();
+        });
     })
 
 
