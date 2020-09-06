@@ -123,44 +123,96 @@
 <br>
 <section class="pictures">
     <section>
-<div class="picture_frame pizza redborder"></div>
+<div class="picture_frame pizza redborder" id="first_picture"></div>
         <button type="button" id="frame-1">Switch</button>
     </section>
     <section>
-<div class="picture_frame tree blueborder"></div>
+<div class="picture_frame tree blueborder" id="second_picture"></div>
         <button type="button" id="frame-2">Switch</button>
     </section>
     <section>
-<div class="picture_frame gameover greenborder"></div>
+<div class="picture_frame gameover greenborder" id="third_picture"></div>
         <button type="button" id="frame-3">Switch</button>
     </section>
 </section>
 
 <script src="js/jquery-2.2.4.min.js"></script>
 <script>
-    $(document).ready(function (){
-        $('#toggle_hidden').click(function(){
+    $(document).ready(function () {
+        $('#toggle_hidden').click(function () {
             $('dd').toggleClass('invisible');
         })
-        $('dt').click(function(){
+        $('dt').click(function () {
             $(this).toggleClass('highlight')
         })
-        $('#highlight_li').click(function(){
-            $('li').each(function(index){
-             if (index === 11 || index=== 15 || index=== 19)
-                 $(this).toggleClass('highlight')
-                })
+        $('#highlight_li').click(function () {
+            $('li').each(function (index) {
+                if (index === 11 || index === 15 || index === 19)
+                    $(this).toggleClass('highlight')
             })
-        $('h3').click(function(){
+        })
+        $('h3').click(function () {
             $(this).next().children(":first-child").toggleClass('text');
         })
-        $('li').click(function(){
+        $('li').click(function () {
             $(this).parent().children(":first-child").toggleClass('text_blue')
         })
-        $('#picture_swap').click(function(){
 
+        $('button').each(function (number) {
+            if (number === 1) {
+                $(this).click(function () {
+                    $('div').each(function (index) {
+                        if (index === 0) {
+                            $(this).toggleClass('pizza').toggleClass('tree').toggleClass('redborder').toggleClass('greenborder');
+                        } else if (index === 1) {
+                            $(this).toggleClass('tree').toggleClass('pizza');
+                        } else if (index === 2) {
+                            $(this).toggleClass('greenborder').toggleClass('redborder');
+                        }
+                    })
+                })
+            }
+            if (number === 2) {
+                $(this).click(function () {
+                    let randomAction = Math.floor(Math.random() * Math.floor(2));
+                    if (randomAction === 0) {
+                        $('div').each(function (index) {
+                            if (index === 0) {
+                                $(this).toggleClass('redborder').toggleClass('blueborder');
+                            } else if (index === 1) {
+                                $(this).toggleClass('blueborder').toggleClass('redborder');
+                            }
+                        })
+                    }
+                    if (randomAction === 1) {
+                        $('div').each(function (index) {
+                            if (index === 1) {
+                                $(this).toggleClass('blueborder').toggleClass('greenborder');
+                            } else if (index === 2) {
+                                $(this).toggleClass('greenborder').toggleClass('blueborder');
+                            }
+                        })
+                    }
+                })
+            }
+
+            if (number === 3){
+                $(this).click(function () {
+                    $('div').each(function (index) {
+                        if (index === 0) {
+                            $(this).toggleClass('redborder').toggleClass('greenborder');
+                        } else if (index === 1) {
+                            $(this).toggleClass('tree').toggleClass('gameover');
+                        } else if (index === 2) {
+                            $(this).toggleClass('gameover').toggleClass('tree').toggleClass('greenborder').toggleClass('redborder');
+                        }
+                    })
+                })
+            }
         })
     })
+
+
 </script>
 </body>
 </html>
