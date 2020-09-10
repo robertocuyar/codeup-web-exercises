@@ -3,7 +3,7 @@
     function stickers (array){
         let html=''
         array.forEach(function(sticker){
-            html += "<a>" + sticker + "</a>" + " "
+            html += "<a class='mx-5 btn tag'>" + sticker + "</a>" + " "
         })
         return html;
     }
@@ -11,10 +11,10 @@ $(document).ready(function() {
         $.get("data/blog.json").done(function (data) {
             data.forEach(function (item) {
                 $('#posts').append(
-                    "<section class ='container row'><h2 class='col-4'>" + item.title + "</h2><h2 class=''>"+ data.date +"</h2><br><image class='blog_img' src=" + item.image + "><br><p>" + item.content +"</p><br><div>" +stickers(item.categories) +"</div></section>"
+                    "<section class ='row justify-content-center'><div class='col-9'><h3 class='mr-auto'>" + item.title + "</h3><h3 class='date'>"+ item.date +"</h3></div><br><image class='blog_img col-9 container' src=" + item.image + "><br><p class='col-9'>" + item.content +"</p><br><div class='col-9'>" +stickers(item.categories) +"</div></section>"
                 )
             })
-            $('section').children().addClass('my-3 text-center mx-5')
+            $('section').children().addClass('my-3 text-center')
         })
     })
    /* var data =

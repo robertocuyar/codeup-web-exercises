@@ -1,0 +1,26 @@
+:root{
+    --bold-main-color: #145374;
+    --light-main-color: #145374;
+    --white-contrast: #f6f5f5;
+    --accent-color: #ee6f57;
+}
+body {
+    background-image: url("../images/weather.png")
+}
+.nav_container {
+    background-color: var(--bold-main-color) !important;
+
+}
+.nav_text{
+    font-size: 1.5rem !important;
+    color: var(--white-contrast) !important;
+}
+#header_current .card{
+    box-sizing: border-box;
+    width: 350px;
+    height: 400px;
+}
+#header_current img {
+    width: 100px;
+    height: 100px;
+}

@@ -1,6 +1,6 @@
 .blog_img {
-    width: 60%;
-    height: 450px;
+    width: 60% !important;
+    height: 450px !important;
 }
 .nav_container{
     background-color: #cf7500;
@@ -10,10 +10,15 @@
     border-color: #f4f4f4;
     color: #f4f4f4;
 }
-image {
-    margin-left: auto!important;
-    margin-right: auto !important;
-}
 main {
     background-image: url("../images/stripes-light.png");
+}
+.date{
+    opacity: .5;
+    text-decoration: none;
+}
+.tag{
+    background-color: #cf7500 !important;
+    color: #f4f4f4 !important;
+    text-transform: uppercase;
 }
