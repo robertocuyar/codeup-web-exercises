@@ -25,6 +25,8 @@
         }
         function getLocation() {
             if (navigator.geolocation) {
+                $('#dashboard').toggleClass('d-none')
+                $('#loader').toggleClass('d-none')
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
                 alert("Browser doesn't support geolocation.")
@@ -45,7 +47,6 @@
         function showPosition(position) {
             $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (data) {
                 $('#loader').toggleClass('d-none')
-                console.log(data);
                     currentCard(data);
 
             $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (info){
@@ -78,6 +79,6 @@
                 })
                     }
         })
-        //getLocation();
+        getLocation();
     })
 })(jQuery)
