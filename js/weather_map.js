@@ -17,15 +17,12 @@
                 return currentDate.getHours() + " : " + currentDate.getMinutes() + " am"
             }
         }
-
         function tempConversion(temp) {
             return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
         }
-
         function cardBody(tempData, weather, hum) {
             return "<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\">" + tempConversion(tempData) + "</li> <li class=\"list-group-item\">" + weather + "</li> <li class=\"list-group-item\">Humidity : " + hum + "%</li> </ul>\n"
         }
-
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -40,7 +37,7 @@
         function fiveCard(info) {
             let dayUpdate = 1;
             for (let i = 3; i <= 35; i += 8) {
-                $('#fiveDay').append("<div class='card container weather_card mx-3'><h5 class='card-title'>" + days[(currentDate.getDay() + dayUpdate)] + "  " + months[currentDate.getMonth()] + " " + (currentDate.getDate() + dayUpdate) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p> <p class='card-text'><small class='text-muted'>Last updated at " + convertTime() + "</small></p> </div> </div>"
+                $('#fiveDay').append("<div class='card container weather_card mx-3'><h5 class='card-title'>" + days[(currentDate.getDay() + dayUpdate)] + "  " + months[currentDate.getMonth()] + " " + (currentDate.getDate() + dayUpdate) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>"
                 )
                 dayUpdate += +1;
             }
@@ -56,7 +53,6 @@
                 //months need to be fixed to change
                 //days need to be fixed as well
                 fiveCard(info);
-
         })
             })
         }
@@ -74,6 +70,7 @@
             else {
                 $.get("http://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + OPENW_TOKEN).done(function (data) {
                     $('#header_current, #fiveDay').children().remove();
+                    console.log(data);
                     currentCard(data);
                     $.get("http://api.openweathermap.org/data/2.5/forecast?q=" + input + "&appid=" + OPENW_TOKEN).done(function (info) {
                         fiveCard(info);

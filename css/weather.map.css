@@ -1,5 +1,5 @@
 :root{
-    --bold-main-color: #145374;
+    --bold-main-color: #00334e;
     --light-main-color: #145374;
     --white-contrast: #f6f5f5;
     --accent-color: #ee6f57;
@@ -17,6 +17,14 @@ body {
 .nav_text{
     font-size: 1.5rem !important;
     color: var(--white-contrast) !important;
+}
+#dashboard{
+    background-color: var(--white-contrast);
+    width: 50% !important;
+    padding: 8rem 6rem;
+}
+.logo {
+    color: var(--light-main-color) !important;
 }
 
 .weather_card{
@@ -58,4 +66,7 @@ body {
     100% {
         transform: rotate(1800deg);
     }
+}
+#cloud_logo{
+    font-size: 10rem;
 }
