@@ -10,19 +10,20 @@
     <link rel="stylesheet" href="css/weather.map.css">
     <title>🌧️D-Weather</title>
 </head>
-<body onload="">
+<body>
+<div class="lds-hourglass" id="loader"></div>
 <nav class="navbar navbar-light nav_container">
     <a class="navbar-brand nav_text">🌧 D-Weather</a>
     <form class="form-inline">
-        <input id="search_bar" class="form-control mr-sm-2 nav_text" type="search" placeholder="Search" aria-label="Search">
-        <button id="search_btn" class="btn srch_btn my-2 my-sm-0 nav_text" type="submit">Search</button>
+        <input id="search_bar" class="form-control mr-sm-2 input_text" type="text" placeholder="Search" aria-label="Search">
+        <button id="search_btn" class="btn srch_btn my-2 my-sm-0 nav_text input_button" type="button">Search</button>
     </form>
 </nav>
 <main class="my-5">
     <section id="header_current"></section>
 </main>
 <article>
-    <p>Here is your 5 day forecast:</p>
+    <p class="non_default">Here is your 5 day forecast:</p>
     <div class="card-group" id="fiveDay"></div>
 </article>
 
