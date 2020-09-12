@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/weather.map.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <title>🌧️D-Weather</title>
 </head>
 <body>
@@ -18,24 +20,28 @@
         <button id="search_btn" class="btn srch_btn my-2 my-sm-0 nav_text input_button" type="button">Search</button>
     </form>
 </nav>
-<section id="dashboard" class="container rounded-circle my-5">
+<section id="dashboard" class="container rounded-circle mt-5">
     <h1 class = "text-center logo">D-Weather</h1>
     <div id="cloud_logo" class="text-center logo"><i class="fas fa-cloud-rain"></i></div>
     <h2 class="text-center logo">Search for your local weather!</h2>
 </section>
-<div class="lds-hourglass d-none" id="loader"></div>
+<header class="d-none">
+<div class="d-flex justify-content-center">
+    <div class="lds-hourglass my-5 container" id="loader"></div>
+</div>
+</header>
 <main class="my-5">
-    <section id="header_current"></section>
+    <div class="row">
+    <section id="header_current" class="col-6"></section>
+        <section id="map" class="col-6"></section>
+    </div>
 </main>
 <article>
     <p class="non_default">Here is your 5 day forecast:</p>
     <div class="card-group" id="fiveDay"></div>
 </article>
-<footer class="footer mt-auto py-3 bottom_container">
-    <div class="container">
-        <span class="text-center">Data</span>
-    </div>
-</footer>
+<footer id="footer" >What's up?</footer>
+
 <script src="js/keys.js"></script>
 <script src="js/jquery-2.2.4.min.js"></script>
 <script src="js/weather_map.js"></script>

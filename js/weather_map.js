@@ -3,7 +3,7 @@
 
 
     $(document).ready(function () {
-        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday", "Monday", "Tuesday", "Wednesday"]
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         let currentDate = new Date();
         let convertTime = function () {
@@ -20,13 +20,23 @@
         function tempConversion(temp) {
             return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
         }
+        function mapDisplay(){
+            mapboxgl.accessToken = MAPBOX_TOKEN;
+            var map = new mapboxgl.Map({
+                container: 'map', // container id
+                style: 'mapbox://styles/mapbox/streets-v11', // style URL
+                center: [-74.5, 40], // starting position [lng, lat]
+                zoom: 9 // starting zoom
+            });
+        }
+        function toggleLoad (){
+            return $('header').toggleClass('d-none')
+        }
         function cardBody(tempData, weather, hum) {
             return "<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\">" + tempConversion(tempData) + "</li> <li class=\"list-group-item\">" + weather + "</li> <li class=\"list-group-item\">Humidity : " + hum + "%</li> </ul>\n"
         }
         function getLocation() {
             if (navigator.geolocation) {
-                $('#dashboard').toggleClass('d-none')
-                $('#loader').toggleClass('d-none')
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
                 alert("Browser doesn't support geolocation.")
@@ -45,9 +55,11 @@
             }
         }
         function showPosition(position) {
+            $('#dashboard').toggleClass('d-none')
+            toggleLoad();
             $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (data) {
-                $('#loader').toggleClass('d-none')
-                    currentCard(data);
+                toggleLoad();
+                currentCard(data);
 
             $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (info){
                 console.log(info);
@@ -58,10 +70,13 @@
             })
         }
         $('.input_button').click(function() {
+            $('#dashboard').addClass('d-none')
+            toggleLoad();
             let input = $('.input_text').val()
             if (input.length === 5 && Number.isInteger(parseInt(input)) && input.includes('.') !== true) {
                 $.get("http://api.openweathermap.org/data/2.5/weather?zip=" + input + "&appid=" + OPENW_TOKEN).done(function (data) {
                     $('#header_current, #fiveDay').children().remove();
+                    toggleLoad();
                     currentCard(data);
                     $.get("http://api.openweathermap.org/data/2.5/forecast?zip=" + input + "&appid=" + OPENW_TOKEN).done(function (info) {
                         fiveCard(info);
@@ -71,11 +86,18 @@
             else {
                 $.get("http://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + OPENW_TOKEN).done(function (data) {
                     $('#header_current, #fiveDay').children().remove();
-                    console.log(data);
+                    toggleLoad();
                     currentCard(data);
                     $.get("http://api.openweathermap.org/data/2.5/forecast?q=" + input + "&appid=" + OPENW_TOKEN).done(function (info) {
                         fiveCard(info);
                     })
+                }).fail(function(){
+                    $('#header_current, #fiveDay').children().remove();
+                    toggleLoad();
+                    $('#dashboard').css('background-color', 'var(--accent-color)').toggleClass('d-none')
+                    $("#dashboard h1").html("Error Location Not Found")
+                    $('#cloud_logo').html('<i class="fas fa-sad-tear"></i>')
+                    $('#dashboard h2').html('Please enter valid city name or zipcode.')
                 })
                     }
         })
