@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/weather.map.css">
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
     <title>🌧️D-Weather</title>
 </head>
 <body>
@@ -32,12 +33,12 @@
 </header>
 <main class="my-5">
     <div class="row">
-    <section id="header_current" class="col-6"></section>
-        <section id="map" class="col-6 d-none"></section>
+    <section id="header_current" class="col-6 p-0"></section>
+        <section id="map" class="col-6 d-none p-0"></section>
     </div>
 </main>
 <article>
-    <p class="non_default">Here is your 5 day forecast:</p>
+    <h2 class="non_default d-none text-center my-5" id="five_title">Here is your 5 day forecast:</h2>
     <div class="card-group" id="fiveDay"></div>
 </article>
 <footer id="footer" >What's up?</footer>
