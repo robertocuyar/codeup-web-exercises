@@ -1,7 +1,5 @@
 (function ($) {
     "use strict";
-
-
     $(document).ready(function () {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -22,7 +20,6 @@
             return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
         }
 
-
         mapboxgl.accessToken = MAPBOX_TOKEN;
         var map = new mapboxgl.Map({
             container: 'map', // container id
@@ -30,9 +27,12 @@
             center: [0, 0], // starting position [lng, lat]
             zoom: 9 // starting zoom
         });
+        var mapDiv = document.getElementById('map');
+        if (mapDiv.style.visibility === true) map.resize();
 
         function mapActivate() {
-            $('#map').removeClass('d-none')
+            $('#header_current').removeClass('d-none')
+            $('#other_message').addClass('d-none')
         }
 
         function mapFly(long, lat) {
@@ -40,6 +40,7 @@
                 center: [long, lat],
                 essential: true
             });
+
         }
 
         function addMarker(long, lat) {
@@ -110,12 +111,12 @@
         }
 
         function showPosition(position) {
-            $('#dashboard').toggleClass('d-none')
+            $('#splash').toggleClass('d-none')
             updateCoord(position.coords.longitude, position.coords.latitude)
         }
 
         $('.input_button').click(function () {
-            $('#dashboard').addClass('d-none')
+            $('#splash').addClass('d-none')
             toggleLoad();
             let input = $('.input_text').val()
             if (input.length === 5 && Number.isInteger(parseInt(input)) && input.includes('.') !== true) {
@@ -144,10 +145,10 @@
                 }).fail(function () {
                     $('#header_current, #fiveDay').children().remove();
                     toggleLoad();
-                    $('#dashboard').css('background-color', 'var(--accent-color)').toggleClass('d-none')
-                    $("#dashboard h1").html("Error Location Not Found")
+                    $('#splash').css('background-color', 'var(--accent-color)').toggleClass('d-none')
+                    $("#splash h1").html("Error Location Not Found")
                     $('#cloud_logo').html('<i class="fas fa-sad-tear"></i>')
-                    $('#dashboard h2').html('Please enter valid city name or zipcode.')
+                    $('#splash h2').html('Please enter valid city name or zipcode.')
                 })
             }
         })
@@ -155,4 +156,3 @@
 
     })
 })(jQuery)
-//position.coords.longitude.toFixed(4)
