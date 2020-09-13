@@ -34,17 +34,23 @@
 </header>
 <main class="my-5">
     <div class="row w-100">
-    <section id="header_current" class="col-6 p-0 d-none"></section>
-    <div id="other_message" class="col-6 p-0 text-center"><h2 id="pitch">Find D-Weather For A Location Today!</h2></div>
-        <section id="map" class="p-0 col-6"></section>
-
+    <section id="header_current" class="col-lg-6 p-0 d-none col-md-12 col-sm-12 mb-3"></section>
+    <div id="other_message" class="col-lg-6 p-0 text-center col-md-12 col-sm-12"><h2 id="pitch">Find D-Weather For A Location Today!</h2></div>
+        <section id="map" class="p-0 col-lg-6 col-md-12 col-sm-12 mb-3"></section>
     </div>
 </main>
 <article>
     <h2 class="non_default d-none text-center my-5" id="five_title">Here is your 5 day forecast:</h2>
-    <div class="card-group" id="fiveDay"></div>
+    <div class="d-flex flex-wrap justify-content-center" id="fiveDay"></div>
 </article>
-<footer id="footer" >What's up?</footer>
+<footer id="footer" class="d-flex justify-content-center align-items-center">
+    <div class="mr-3">
+        <h5 class="mb-0">D-Weather Forecast. © 2020 All Rights Reserved</h5>
+    </div>
+    <a class = "mx-3" href="">Terms of Service</a>
+    <a class = "mx-3" href="">Privacy Policy</a>
+    <a class = "mx-3" href="">Cookies</a>
+</footer>
 
 <script src="js/keys.js"></script>
 <script src="js/jquery-2.2.4.min.js"></script>
