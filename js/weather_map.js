@@ -23,28 +23,40 @@
         }
 
 
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [0, 0], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
 
-            mapboxgl.accessToken = MAPBOX_TOKEN;
-            var map = new mapboxgl.Map({
-                container: 'map', // container id
-                style: 'mapbox://styles/mapbox/streets-v11', // style URL
-                center: [0, 0], // starting position [lng, lat]
-                zoom: 12 // starting zoom
-            });
-            function mapActivate(){
-                $('#map').removeClass('d-none')
-            }
-
-
+        function mapActivate() {
+            $('#map').removeClass('d-none')
+        }
 
         function mapFly(long, lat) {
             map.flyTo({
                 center: [long, lat],
                 essential: true
             });
-            var marker = new mapboxgl.Marker()
+        }
+
+        function addMarker(long, lat) {
+            $('.mapboxgl-marker').remove()
+            var marker = new mapboxgl.Marker({
+                draggable: true
+            })
                 .setLngLat([long, lat])
                 .addTo(map);
+
+            function onDragEnd() {
+                var lngLat = marker.getLngLat();
+                $('#header_current, #fiveDay').children().remove();
+                updateCoord(lngLat.lng, lngLat.lat);
+            }
+            marker.on('dragend', onDragEnd);
+            return marker;
         }
 
         function toggleLoad() {
@@ -55,13 +67,6 @@
             return "<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\">" + tempConversion(tempData) + "</li> <li class=\"list-group-item\">" + weather + "</li> <li class=\"list-group-item\">Humidity : " + hum + "%</li> </ul>\n"
         }
 
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert("Browser doesn't support geolocation.")
-            }
-        }
 
         function currentCard(data) {
             $('#header_current').append("<p>D-weather for " + data.name + ", " + data.sys.country + " is: </p>")
@@ -71,27 +76,41 @@
 
         function fiveCard(info) {
             let dayUpdate = 1;
-            for (let i = 3; i <= 35; i += 8) {
+            for (let i = 0; i <= 32; i += 8) {
                 $('#fiveDay').append("<div class='card container weather_card mx-3'><h5 class='card-title'>" + days[(currentDate.getDay() + dayUpdate)] + "  " + months[currentDate.getMonth()] + " " + (currentDate.getDate() + dayUpdate) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>"
                 )
                 dayUpdate += +1;
             }
         }
 
-        function showPosition(position) {
-            $('#dashboard').toggleClass('d-none')
+        function updateCoord(lng, lat) {
             toggleLoad();
-            $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (data) {
+            $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&appid=" + OPENW_TOKEN).done(function (data) {
                 toggleLoad();
+                mapActivate();
                 currentCard(data);
-                mapDisplay(position.coords.longitude, position.coords.latitude);
+                mapFly(lng, lat);
+                addMarker(lng, lat);
 
-                $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude.toFixed(4) + "&lon=" + position.coords.longitude.toFixed(4) + "&appid=" + OPENW_TOKEN).done(function (info) {
+                $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lng + "&appid=" + OPENW_TOKEN).done(function (info) {
                     //months need to be fixed to change
                     //days need to be fixed as well
                     fiveCard(info);
                 })
             })
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Browser doesn't support geolocation.")
+            }
+        }
+
+        function showPosition(position) {
+            $('#dashboard').toggleClass('d-none')
+            updateCoord(position.coords.longitude, position.coords.latitude)
         }
 
         $('.input_button').click(function () {
@@ -102,8 +121,10 @@
                 $.get("http://api.openweathermap.org/data/2.5/weather?zip=" + input + "&appid=" + OPENW_TOKEN).done(function (data) {
                     $('#header_current, #fiveDay').children().remove();
                     toggleLoad();
+                    mapActivate();
                     currentCard(data);
                     mapFly(data.coord.lon, data.coord.lat)
+                    addMarker(data.coord.lon, data.coord.lat)
                     $.get("http://api.openweathermap.org/data/2.5/forecast?zip=" + input + "&appid=" + OPENW_TOKEN).done(function (info) {
                         fiveCard(info);
                     })
@@ -112,8 +133,10 @@
                 $.get("http://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=" + OPENW_TOKEN).done(function (data) {
                     $('#header_current, #fiveDay').children().remove();
                     toggleLoad();
+                    mapActivate();
                     currentCard(data);
-                    mapDisplay(data.coord.lon, data.coord.lat)
+                    mapFly(data.coord.lon, data.coord.lat)
+                    addMarker(data.coord.lon, data.coord.lat)
                     $.get("http://api.openweathermap.org/data/2.5/forecast?q=" + input + "&appid=" + OPENW_TOKEN).done(function (info) {
                         fiveCard(info);
                     })
@@ -128,5 +151,7 @@
             }
         })
         getLocation();
+
     })
 })(jQuery)
+//position.coords.longitude.toFixed(4)

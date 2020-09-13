@@ -78,9 +78,7 @@ section h1{
         transform: rotate(1800deg);
     }
 }
-/*#load {
-    min-height: 100vh !important;
-}*/
+
 .bottom_container{
     background-color: var(--light-main-color);
     color: var(--white-contrast) !important;
