@@ -2,7 +2,8 @@
     "use strict";
     $(document).ready(function () {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        let month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        let months = {"01":"January", "02": "February", "03": "March", "04": "April", "05": "May", "06": "June", "07": "July", "08": "August", "09":"September", "10":"October", "11":"November", "12":"December"}
         let currentDate = new Date();
         let convertTime = function () {
             if(currentDate.getHours() ===0 && currentDate.getMinutes() <= 9){
@@ -27,6 +28,21 @@
         function tempConversion(temp) {
             return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
         }
+        function monthRender(string){
+            let array = string.split("");
+            let output = "";
+            Object.keys(months).forEach(function(element){
+               if (element === (array[5] + array[6])){
+                  output = element;
+               }
+        })
+            return months[output];
+        }
+        function dayRender(string){
+            let array = string.split("");
+            return array[8] + array[9];
+        }
+
 
         mapboxgl.accessToken = MAPBOX_TOKEN;
         var map = new mapboxgl.Map({
@@ -79,7 +95,7 @@
 
         function currentCard(data) {
             $('#header_current').append("<h2 id='head_info' class='text-center mb-5'>D-weather for " + data.name + ", " + data.sys.country + " is: </h2>")
-                .append("<div class='card container weather_card text-center p-0 current_card'><div class='card-header card_top'><h4>" + days[currentDate.getDay()] + "</h4></div><h5 class='card-title my-3 weather_month'>" + months[currentDate.getMonth()] + " " + currentDate.getDate() + "</h5><img class='container' src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(data.main.temp, data.weather[0].description, data.main.humidity) + "</p> <p class='card-text'><small class='text-muted'>Last updated at " + convertTime() + "</small></p> </div> </div>"
+                .append("<div class='card container weather_card text-center p-0 current_card'><div class='card-header card_top'><h4>" + days[currentDate.getDay()] + "</h4></div><h5 class='card-title my-3 weather_month'>" + month[currentDate.getMonth()] + " " + currentDate.getDate() + "</h5><img class='container' src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(data.main.temp, data.weather[0].description, data.main.humidity) + "</p> <p class='card-text'><small class='text-muted'>Last updated at " + convertTime() + "</small></p> </div> </div>"
                 )
         }
 
@@ -87,8 +103,7 @@
             $('#five_title').removeClass('d-none');
             let dayUpdate = 1;
             for (let i = 0; i <= 32; i += 8) {
-                $('#fiveDay').append("<div class='card container weather_card mx-3 text-center p-0 small_card mb-3'><div class ='card-header card_top'><h4>"+ days[(currentDate.getDay() + dayUpdate)] +"</h4></div><h5 class='card-title my-3 weather_month'>" + months[currentDate.getMonth()] + " " + (currentDate.getDate() + dayUpdate) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>"
-                )
+                $('#fiveDay').append("<div class='card container weather_card mx-3 text-center p-0 small_card mb-3'><div class ='card-header card_top'><h4>"+ days[(currentDate.getDay() + dayUpdate)] +"</h4></div><h5 class='card-title my-3 weather_month'>" + monthRender(info.list[i].dt_txt) + " " + dayRender(info.list[i].dt_txt) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>")
                 dayUpdate += +1;
             }
         }
@@ -106,6 +121,8 @@
                     //months need to be fixed to change
                     //days need to be fixed as well
                     fiveCard(info);
+                    console.log(info);
+
                 })
             })
         }
