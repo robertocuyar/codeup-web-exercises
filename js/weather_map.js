@@ -3,16 +3,29 @@
     $(document).ready(function () {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
         let month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        let months = {"01":"January", "02": "February", "03": "March", "04": "April", "05": "May", "06": "June", "07": "July", "08": "August", "09":"September", "10":"October", "11":"November", "12":"December"}
+        let months = {
+            "01": "January",
+            "02": "February",
+            "03": "March",
+            "04": "April",
+            "05": "May",
+            "06": "June",
+            "07": "July",
+            "08": "August",
+            "09": "September",
+            "10": "October",
+            "11": "November",
+            "12": "December"
+        }
         let currentDate = new Date();
         let convertTime = function () {
-            if(currentDate.getHours() ===0 && currentDate.getMinutes() <= 9){
+            if (currentDate.getHours() === 0 && currentDate.getMinutes() <= 9) {
                 return "12" + " : 0" + currentDate.getMinutes() + " am"
-            } else if(currentDate.getHours() === 0 && currentDate.getMinutes() > 9){
+            } else if (currentDate.getHours() === 0 && currentDate.getMinutes() > 9) {
                 return "12" + " : " + currentDate.getMinutes() + " am"
-            } else if(currentDate.getHours() === 12 && currentDate.getMinutes() <= 9){
+            } else if (currentDate.getHours() === 12 && currentDate.getMinutes() <= 9) {
                 return "12" + " : 0" + currentDate.getMinutes() + " pm"
-            } else if(currentDate.getHours() === 12 && currentDate.getMinutes() > 9) {
+            } else if (currentDate.getHours() === 12 && currentDate.getMinutes() > 9) {
                 return "12" + " : " + currentDate.getMinutes() + " pm"
             } else if (currentDate.getHours() > 12 && currentDate.getMinutes() > 9) {
                 return (currentDate.getHours() - 12) + " : " + currentDate.getMinutes() + " pm"
@@ -28,17 +41,19 @@
         function tempConversion(temp) {
             return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
         }
-        function monthRender(string){
+
+        function monthRender(string) {
             let array = string.split("");
             let output = "";
-            Object.keys(months).forEach(function(element){
-               if (element === (array[5] + array[6])){
-                  output = element;
-               }
-        })
+            Object.keys(months).forEach(function (element) {
+                if (element === (array[5] + array[6])) {
+                    output = element;
+                }
+            })
             return months[output];
         }
-        function dayRender(string){
+
+        function dayRender(string) {
             let array = string.split("");
             return array[8] + array[9];
         }
@@ -46,10 +61,10 @@
 
         mapboxgl.accessToken = MAPBOX_TOKEN;
         var map = new mapboxgl.Map({
-            container: 'map', // container id
-            style: 'mapbox://styles/mapbox/streets-v11', // style URL
-            center: [0, 0], // starting position [lng, lat]
-            zoom: 9 // starting zoom
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [0, 0],
+            zoom: 9
         });
         var mapDiv = document.getElementById('map');
         if (mapDiv.style.visibility === true) map.resize();
@@ -80,6 +95,7 @@
                 $('#header_current, #fiveDay').children().remove();
                 updateCoord(lngLat.lng, lngLat.lat);
             }
+
             marker.on('dragend', onDragEnd);
             return marker;
         }
@@ -103,7 +119,7 @@
             $('#five_title').removeClass('d-none');
             let dayUpdate = 1;
             for (let i = 0; i <= 32; i += 8) {
-                $('#fiveDay').append("<div class='card container weather_card mx-3 text-center p-0 small_card mb-3'><div class ='card-header card_top'><h4>"+ days[(currentDate.getDay() + dayUpdate)] +"</h4></div><h5 class='card-title my-3 weather_month'>" + monthRender(info.list[i].dt_txt) + " " + dayRender(info.list[i].dt_txt) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>")
+                $('#fiveDay').append("<div class='card container weather_card mx-3 text-center p-0 small_card mb-3'><div class ='card-header card_top'><h4>" + days[(currentDate.getDay() + dayUpdate)] + "</h4></div><h5 class='card-title my-3 weather_month'>" + monthRender(info.list[i].dt_txt) + " " + dayRender(info.list[i].dt_txt) + "</h5><img class='container' src='http://openweathermap.org/img/w/" + info.list[i].weather[0].icon + ".png' class='card-img-top' alt='...'> <div class='card-body py-0'>  <p class='card-text'>" + cardBody(info.list[i].main.temp, info.list[i].weather[0].description, info.list[i].main.humidity) + "</p></div></div>")
                 dayUpdate += +1;
             }
         }
@@ -118,8 +134,6 @@
                 addMarker(lng, lat);
 
                 $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lng + "&appid=" + OPENW_TOKEN).done(function (info) {
-                    //months need to be fixed to change
-                    //days need to be fixed as well
                     fiveCard(info);
                     console.log(info);
 
