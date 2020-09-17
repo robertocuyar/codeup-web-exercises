@@ -18,7 +18,7 @@
             "12": "December"
         }
         let currentDate = new Date();
-        let convertTime = function () {
+        const convertTime = () => {
             if (currentDate.getHours() === 0 && currentDate.getMinutes() <= 9) {
                 return "12" + " : 0" + currentDate.getMinutes() + " am"
             } else if (currentDate.getHours() === 0 && currentDate.getMinutes() > 9) {
@@ -38,53 +38,45 @@
             }
         }
 
-        function tempConversion(temp) {
-            return Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C"
-        }
+        const tempConversion= (temp) => Math.trunc((temp - 273.15) * 9 / 5 + 32) + "&#176 F  /  " + Math.trunc((temp - 273.15)) + "&#176 C";
 
-        function monthRender(string) {
-            let array = string.split("");
+        const monthRender = string => {
             let output = "";
-            Object.keys(months).forEach(function (element) {
-                if (element === (array[5] + array[6])) {
+            for(let element of Object.keys(months)) {
+                if (element === (string[5] + string[6])) {
                     output = element;
                 }
-            })
+            }
             return months[output];
         }
 
-        function dayRender(string) {
-            let array = string.split("");
-            return array[8] + array[9];
-        }
-
+        const dayRender = string => string[8] + string[9];
 
         mapboxgl.accessToken = MAPBOX_TOKEN;
-        var map = new mapboxgl.Map({
+        let map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [0, 0],
             zoom: 9
         });
-        var mapDiv = document.getElementById('map');
+        let mapDiv = document.getElementById('map');
         if (mapDiv.style.visibility === true) map.resize();
 
-        function mapActivate() {
+        const mapActivate = () => {
             $('#header_current').removeClass('d-none')
             $('#other_message').addClass('d-none')
         }
 
-        function mapFly(long, lat) {
+        const mapFly = (long, lat) => {
             map.flyTo({
                 center: [long, lat],
                 essential: true
             });
-
         }
 
         function addMarker(long, lat) {
             $('.mapboxgl-marker').remove()
-            var marker = new mapboxgl.Marker({
+            let marker = new mapboxgl.Marker({
                 draggable: true
             })
                 .setLngLat([long, lat])
