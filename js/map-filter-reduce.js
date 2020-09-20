@@ -45,3 +45,29 @@ const totalExp = users.reduce((initial, {yearsOfExperience})=> {
     return initial + yearsOfExperience
 },0)
 const average = totalExp/users.length
+
+const longEmail = users.reduce((compareStr,{email}) =>{
+    if (compareStr.length < email.length){
+        compareStr = email
+    }
+    return compareStr
+},"");
+
+const listMessage = users.reduce((acc, {name}) =>{
+    return acc + name + ", "
+},"")
+let strMessage = `Your instructors are: ${listMessage.slice(0, -2)}.`
+
+const uniqueList = users.reduce((total, {languages})=>{
+    return total + languages + ","
+},"")
+console.log(uniqueList);
+
+let newStr = uniqueList.slice(0, -1);
+let newArr = newStr.split(',');
+
+const uniqueContent = newArr.filter((a, b) => newArr.indexOf(a)=== b)
+    .reduce((total, item)=> {
+        return total + item + ", "
+    },"")
+console.log(uniqueContent.slice(0,-1));
